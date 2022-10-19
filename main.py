@@ -95,6 +95,47 @@ def informacao():
     l_descricao['text'] = descricao
 
     # Logica para trocar o fundo
+    zona_periodo = datetime.now(zona)
+    zona_periodo = zona_periodo.strftime("%H")
+
+    global imagem
+
+    zona_periodo = int(zona_periodo)
+
+    if zona_periodo <= 5:
+        imagem = Image.open('img/noite.png')
+        fundo = fundo_noite
+    elif zona_periodo <= 11:
+        imagem = Image.open('img/dia.png')
+        fundo = fundo_dia
+    elif zona_periodo <= 17:
+        imagem = Image.open('img/tarde.png')
+        fundo = fundo_tarde
+    elif zona_periodo <= 23:
+        imagem = Image.open('img/lua.png')
+        fundo = fundo_tarde
+    else:
+        pass
+
+
+    imagem = imagem.resize((130, 130))
+    imagem = ImageTk.PhotoImage(imagem)
+
+    icon = Label(frame_corpo, image=imagem, bg=fundo)
+    icon.place(x=160, y=50)
+
+    janela.configure(bg=fundo)
+    frame_top.configure(bg=fundo)
+    frame_corpo.configure(bg=fundo)
+
+    l_cidade['bg'] = fundo
+    l_data['bg'] = fundo
+    l_humidade['bg'] = fundo
+    l_h_simbolo['bg'] = fundo
+    l_h_nome['bg'] = fundo
+    l_pressao['bg'] = fundo
+    l_velocidade['bg'] = fundo
+    l_descricao['bg'] = fundo
 
 
 # Configurando Frame Top
@@ -125,13 +166,6 @@ l_pressao.place(x=10, y=184)
 
 l_velocidade = Label(frame_corpo, text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
 l_velocidade.place(x=10, y=214)
-
-imagem = Image.open('img/dia.png')
-imagem = imagem.resize((130, 130))
-imagem = ImageTk.PhotoImage(imagem)
-
-icon = Label(frame_corpo, image=imagem, bg=fundo)
-icon.place(x=160, y=50)
 
 l_descricao = Label(frame_corpo, text='', anchor='center', bg=fundo, fg=cor1, font=("Arial 10"))
 l_descricao.place(x=170, y=190)
